@@ -8,6 +8,7 @@ export default function ClaimsPage() {
   const [claims, setClaims] = useState([])
   const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState('')
+  const [message, setMessage] = useState('')
 
   const load = async () => {
     setLoading(true)
@@ -17,6 +18,7 @@ export default function ClaimsPage() {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.warn('Failed to load claims', e)
+      setMessage('Failed to load claims.')
     } finally {
       setLoading(false)
     }
@@ -28,13 +30,16 @@ export default function ClaimsPage() {
 
   const submitClaim = async (e) => {
     e.preventDefault()
+    setMessage('Submitting claim...')
     try {
       await api.post('/api/claims', { title })
       setTitle('')
+      setMessage('Claim submitted.')
       load()
     } catch (e) {
       // eslint-disable-next-line no-console
       console.warn('Failed to submit claim', e)
+      setMessage(e?.response?.data?.message || 'Failed to submit claim.')
     }
   }
 
@@ -45,6 +50,7 @@ export default function ClaimsPage() {
         <input placeholder="Claim title" value={title} onChange={(e) => setTitle(e.target.value)} style={{ padding: 8 }} />
         <button className="theme-toggle" type="submit">Submit</button>
       </form>
+      {message && <div style={{ fontSize: 12, opacity: 0.85 }}>{message}</div>}
       {loading ? (
         <div>Loading...</div>
       ) : (
