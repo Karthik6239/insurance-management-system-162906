@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from '@testing-library/react'
+import App from './App'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+test('renders navigation links', () => {
+  render(<App />)
+  // Navbar links should be present
+  expect(screen.getByText(/Dashboard/i)).toBeInTheDocument()
+  expect(screen.getByText(/Policies/i)).toBeInTheDocument()
+  expect(screen.getByText(/Claims/i)).toBeInTheDocument()
+})
