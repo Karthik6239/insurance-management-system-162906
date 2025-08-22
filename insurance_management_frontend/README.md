@@ -2,6 +2,24 @@
 
 This project provides a minimal React template with a clean, modern UI and minimal dependencies.
 
+## Supabase Setup (Storage + Auth)
+
+1. Create a bucket named `claims-attachments` (private) in Supabase Storage.
+2. Apply RLS policies as documented in assets/supabase.md.
+3. Create `.env` from `.env.example`:
+   - REACT_APP_SUPABASE_URL
+   - REACT_APP_SUPABASE_ANON_KEY
+   - REACT_APP_SITE_URL (e.g., http://localhost:3000)
+4. Install SDK:
+   - npm install @supabase/supabase-js
+5. Auth URL Configuration in Supabase:
+   - Site URL: your http://localhost:3000 or production domain
+   - Redirects: http://localhost:3000/** and your production domain /**
+6. Use helpers:
+   - src/utils/supabase.js to access the client
+   - src/utils/getURL.js for dynamic redirect origins
+   - Optional auth component: src/components/AuthCallback.js
+
 ## Features
 
 - **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
